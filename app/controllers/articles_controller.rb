@@ -16,7 +16,7 @@ class ArticlesController < ApplicationController
         @article = Article.new(article_params)
         if @article.save
             redirect_to article_path(@article), notice: '保存しました'
-        else 
+        else
             flash.now[:error] = '保存に失敗しました'
             render :new
         end
