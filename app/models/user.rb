@@ -27,9 +27,9 @@ class User < ApplicationRecord
   has_many :favorite_articles, through: :likes, source: :article
   has_one :profile, dependent: :destroy
   has_many :following_relationships, foreign_key: 'follower_id', class_name: 'Relationship', dependent: :destroy
-  has_many :followings, through: :following_relationship, source: :following
+  has_many :followings, through: :following_relationships, source: :following
   has_many :follower_relationships, foreign_key: 'following_id', class_name: 'Relationship', dependent: :destroy
-  has_many :followers, through: :follower_relationship, source: :follower
+  has_many :followers, through: :follower_relationships, source: :follower
 
   delegate :birthday, :age, :gender, to: :profile, allow_nil: true
 
@@ -39,18 +39,6 @@ class User < ApplicationRecord
 
   def has_liked?(article)
     likes.exists?(article_id: article.id)
-  end
-
-  def display_name
-    profile&.nickname || self.email.split('@').first
-  end
-
-  def avatar_image
-    if profile&.avatar&.attached?
-      profile.avatar
-    else
-      'default-avatar.png'
-    end
   end
 
   def follow!(user)
