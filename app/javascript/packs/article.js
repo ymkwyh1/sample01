@@ -21,7 +21,7 @@ const handleCommentForm = () => {
 
 const appendNewComment = (comment) => {
   $('.comments-container').append(
-    `<div class="article_comment"><p>${comment.content}</p></div>`
+    `<div class="article_comment"><p>${expect(comment.content)}</p></div>`
   )
 }
 
